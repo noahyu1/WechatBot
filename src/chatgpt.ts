@@ -274,7 +274,7 @@ export class ChatGPTBot {
       ""
     );
     // remove more text via - - - - - - - - - - - - - - -
-    return text;
+    return text.trim();
   }
   async getGPTMessage(text: string, talkerId: string): Promise<string> {
     return await this.chatGPTPool.sendMessage(text, talkerId);
@@ -341,7 +341,7 @@ export class ChatGPTBot {
     text: string,
     room: RoomInterface
   ) {
-    const talkerId = talker.id;
+    const talkerId = room.id + talker.id;
     const gptMessage = await this.getGPTMessage(text, talkerId);
     const result = `${text}\n ------\n ${gptMessage}`;
     await this.trySay(room, result);
